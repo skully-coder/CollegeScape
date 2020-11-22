@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>114634471118-hf4m4f852u05pvtj1fd00vakp7bg9ni5.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.114634471118-hf4m4f852u05pvtj1fd00vakp7bg9ni5</string>
+	<key>API_KEY</key>
+	<string>AIzaSyC0juygnVJjknzIW8DntZo6grmuGExtoY0</string>
+	<key>GCM_SENDER_ID</key>
+	<string>114634471118</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.manipalleaks</string>
+	<key>PROJECT_ID</key>
+	<string>manipalleaks</string>
+	<key>STORAGE_BUCKET</key>
+	<string>manipalleaks.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:114634471118:ios:b91e8ccc2c10237c16829f</string>
+	<key>DATABASE_URL</key>
+	<string>https://manipalleaks.firebaseio.com</string>
+</dict>
+</plist>

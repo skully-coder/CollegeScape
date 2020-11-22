@@ -1,0 +1,70 @@
+
+import 'package:flutter/material.dart';
+import 'package:flutter_plugin_pdf_viewer/flutter_plugin_pdf_viewer.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        title: 'ManipalLeaks',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: HomePage());
+  }
+}
+
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  List<String> year = ['First Year', 'Second Year', 'Third Year', 'Fourth Year'];
+  
+  Widget getListView(List<String> text){
+    return ListView.builder(
+      itemBuilder: (context, index){
+        return ListTile(
+          leading: Icon(Icons.school),
+          title: Text(text[index]),
+          onTap: (){
+            Navigator.push(context, MaterialPageRoute(builder: (context) => SemPage(text[index])));
+          },
+        );
+      },
+      itemCount: text.length,
+    );
+  }
+
+
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      appBar: AppBar(
+        title : Text('ManipalLeaks'),
+        centerTitle: true,
+      ),
+      body: getListView(year),
+    );
+  }
+}
+
+class SemPage extends StatelessWidget{
+  final String title;
+  SemPage(this.title);
+  @override
+  Widget build(BuildContext context){
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title)
+      ),
+    );
+  }
+}

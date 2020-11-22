@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "114634471118",
+    "firebase_url": "https://manipalleaks.firebaseio.com",
+    "project_id": "manipalleaks",
+    "storage_bucket": "manipalleaks.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:114634471118:android:baac3efac4eaa6dd16829f",
+        "android_client_info": {
+          "package_name": "com.manipal.manipalleaks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "114634471118-i10pvgnpjhegh6m8o5bqgmtv2m2uprbj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC5wBuZmcCGOVUapisH0wkoJrZBejLJyY0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "114634471118-i10pvgnpjhegh6m8o5bqgmtv2m2uprbj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
