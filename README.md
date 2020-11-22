@@ -1,4 +1,4 @@
-# manipalleaks
+# CollegeScape
 
 A new Flutter project.
 
