@@ -64,12 +64,6 @@ class _SplashScreenState extends State<SplashScreen> {
     Random random = Random();
     var randInt = random.nextInt(4);
     print(randInt);
-    const iconname = [
-      'assets/bluetest.png',
-      'assets/firetest.png',
-      'assets/leaks 7 (1).png',
-      'assets/whitetest.png'
-    ];
     return Scaffold(
       backgroundColor: Color.fromRGBO(20, 148, 180, 10),
       body: Container(

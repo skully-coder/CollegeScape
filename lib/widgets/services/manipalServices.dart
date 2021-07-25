@@ -645,11 +645,14 @@ class _ManipalServicesState extends State<ManipalServices>
         break;
       case 'Market Place':
         return TabBarView(
-            controller: _marketTabController,
-            children: marketPlaceTabs.map((e) {
-              // print(e);
-              return MarketPlaceMessages(e);
-            }).toList());
+          controller: _marketTabController,
+          children: marketPlaceTabs != null
+              ? marketPlaceTabs.map((e) {
+                  // print(e);
+                  return MarketPlaceMessages(e);
+                }).toList()
+              : [],
+        );
       default:
         return Container();
         break;
@@ -677,7 +680,7 @@ class _ManipalServicesState extends State<ManipalServices>
 
   Future<void> share(var e) async {
     await FlutterShare.share(
-        title: 'Example share', text: e, chooserTitle: 'Share To:');
+        title: 'Share', text: e, chooserTitle: 'Share To:');
   }
 
   showOptions(var e) {

@@ -10,7 +10,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 import '../notes/firstYear.dart';
 import '../notes/secondYear.dart';
 import 'portal_links.dart';
@@ -19,7 +18,7 @@ import '../main.dart';
 import 'package:manipalleaks/authentication/auth.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-// import 'package:clay_containers/clay_containers.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatefulWidget {
@@ -31,7 +30,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   static CalendarController _controller;
   TabController _tabcontroller;
-  // PageController _pageController;
+
   var _events = {};
   List<dynamic> _selectedEvents;
   Map<DateTime, List<dynamic>> _dateEvents;
@@ -95,14 +94,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     'To navigate to different sections on the app, tap on the corresponding icons in the bottom',
     'To view your account details, navigate to Menu > Account Settings',
     'To change your profile picture, navigate to Menu > Account Settings > Tap on the picture beside your name > Click on \'+\'',
-    'To subscribe to the notification channel of section, navigate to Menu > Account Settings ? Edit User Profile > Type in your section'
+    'To subscribe to the notification channel of section, navigate to Menu > Account Settings > Edit User Profile > Type in your section'
   ];
 
   @override
   void initState() {
     super.initState();
-    // _pageController =
-    //     PageController(initialPage: _currentIndex, keepPage: true);
+
     _controller = CalendarController();
     weekday = DateTime.now().weekday;
     print(weekday);
@@ -116,7 +114,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     });
     getChannelName();
 
-    // getTimtable();
     print(DateTime.utc(2020, 8, 3, 12));
   }
 
@@ -153,7 +150,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               "$year-${branch.substring(0, branch.indexOf(':'))}-${section.toUpperCase()}";
         }
         channelnames[0] = year;
-        // print(channelnames);
+
         isGetChannelNames = true;
       });
     }).catchError((e) => print(e));
@@ -175,8 +172,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       userbranch = value.data['branch'];
       usersection = value.data['section'].toString().toUpperCase();
     }).catchError((e) => print(e));
-    // print(uname);
-    // print(isUserDetailsLoaded);
   }
 
   getTimtable() async {
@@ -190,8 +185,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           .get()
           .then((value) {
         setState(() {
-          // monday = value.data['Monday'];
-          // tuesday = value.data['Tuesday'];
           timetable.add(value.data['Monday']);
           timetable.add(value.data['Tuesday']);
           timetable.add(value.data['Wednesday']);
@@ -199,10 +192,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           timetable.add(value.data['Friday']);
           timetable.add(value.data['Saturday']);
           istimetableLoaded = true;
-          // timetable.add(monday);
           print(timetable);
-          // print(monday.toString());
-          // print(tuesday);
         });
       }).catchError((e) => print(e));
     } else {
@@ -271,19 +261,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       ),
       width: 7.0,
       height: 7.0,
-      // child: Center(
-      //   child: Text(
-      //     '${events.length}',
-      //     style: TextStyle().copyWith(
-      //       color: _controller.isSelected(date)
-      //           ? Colors.white
-      //           : _controller.isToday(date)
-      //               ? Colors.white
-      //               : darktheme ? Colors.white : Colors.black,
-      //       fontSize: 12.0,
-      //     ),
-      //   ),
-      // ),
     );
   }
 
@@ -424,7 +401,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                           : Colors.black,
                                                     )),
                                                 actions: [
-                                                  FlatButton(
+                                                  TextButton(
                                                     onPressed: () {
                                                       Navigator.pop(context);
                                                     },
@@ -446,122 +423,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   ),
                 )
               : SizedBox(),
-          // showTips == true
-          //     ? Padding(
-          //         padding: const EdgeInsets.fromLTRB(8.0, 0, 0, 0),
-          //         child: Row(
-          //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //           children: [
-          //             Text('\t\tTips',
-          //                 style: GoogleFonts.montserrat(
-          //                     fontSize: 17.0,
-          //                     fontWeight: FontWeight.bold,
-          //                     color: darktheme
-          //                         ? Colors.grey[100]
-          //                         : Colors.grey[900])),
-          //             IconButton(
-          //                 icon: Icon(Icons.close),
-          //                 onPressed: () {
-          //                   setState(() {
-          //                     showTips = false;
-          //                     prefs.setBool("showTips", showTips);
-          //                   });
-          //                 })
-          //           ],
-          //         ),
-          //       )
-          //     : SizedBox(),
-          // showTips == true
-          //     ? Padding(
-          //         padding: const EdgeInsets.all(8.0),
-          //         child: SizedBox(
-          //           height: 100.0,
-          //           child: ListView.builder(
-          //             physics: ClampingScrollPhysics(),
-          //             shrinkWrap: true,
-          //             scrollDirection: Axis.horizontal,
-          //             itemCount: tips.length,
-          //             itemBuilder: (BuildContext context, int index) =>
-          //                 Container(
-          //               width: 250.0,
-          //               child: Card(
-          //                 elevation: 6.0,
-          //                 shape: RoundedRectangleBorder(
-          //                     borderRadius: BorderRadius.circular(10.0)),
-          //                 color: darktheme ? Colors.grey[850] : Colors.white,
-          //                 child: ListTile(
-          //                   title: Row(
-          //                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //                     children: [
-          //                       Text('Tip ${index + 1}',
-          //                           style: TextStyle(
-          //                               color: darktheme
-          //                                   ? Colors.white
-          //                                   : Colors.black,
-          //                               fontWeight: FontWeight.bold)),
-          //                       Icon(
-          //                         Icons.lightbulb_outline,
-          //                         color: Colors.yellow,
-          //                       )
-          //                     ],
-          //                   ),
-          //                   subtitle: Text(tips[index],
-          //                       overflow: TextOverflow.ellipsis,
-          //                       maxLines: 3,
-          //                       style: TextStyle(
-          //                           color: darktheme
-          //                               ? Colors.white
-          //                               : Colors.black)),
-          //                   onTap: () {
-          //                     showDialog(
-          //                       context: context,
-          //                       builder: (context) => AlertDialog(
-          //                         backgroundColor: darktheme
-          //                             ? Colors.grey[850]
-          //                             : Colors.white,
-          //                         shape: RoundedRectangleBorder(
-          //                             borderRadius:
-          //                                 BorderRadius.circular(20.0)),
-          //                         title: Row(
-          //                           mainAxisAlignment:
-          //                               MainAxisAlignment.spaceBetween,
-          //                           children: [
-          //                             Text('Tip',
-          //                                 style: TextStyle(
-          //                                     color: darktheme
-          //                                         ? Colors.white
-          //                                         : Colors.black,
-          //                                     fontWeight: FontWeight.bold)),
-          //                             Icon(
-          //                               Icons.lightbulb_outline,
-          //                               color: Colors.yellow,
-          //                             )
-          //                           ],
-          //                         ),
-          //                         content: Text(tips[index],
-          //                             style: TextStyle(
-          //                               color: darktheme
-          //                                   ? Colors.white
-          //                                   : Colors.black,
-          //                             )),
-          //                         actions: [
-          //                           FlatButton(
-          //                             onPressed: () {
-          //                               Navigator.pop(context);
-          //                             },
-          //                             child: Text('OK'),
-          //                           )
-          //                         ],
-          //                       ),
-          //                     );
-          //                   },
-          //                 ),
-          //               ),
-          //             ),
-          //           ),
-          //         ),
-          //       )
-          //     : SizedBox(),
           Padding(
             padding: const EdgeInsets.all(12.0),
             child: Container(
@@ -609,23 +470,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ),
                 daysOfWeekStyle: DaysOfWeekStyle(
                   weekdayStyle: TextStyle(
-                    //fontWeight: FontWeight.bold,
                     color: Colors.grey,
                   ),
                   weekendStyle: TextStyle(
-                    //fontWeight: FontWeight.bold,
                     color: Colors.grey,
                   ),
                 ),
                 startingDayOfWeek: StartingDayOfWeek.monday,
-                // onDayLongPressed: (date, events) {
-                //   _showDaySelectedEvents(date, events);
-                // },
                 onDaySelected: (date, events) {
                   setState(() {
                     _selectedEvents = events;
                     weekday = _controller.selectedDay.weekday;
-                    // print(_selectedEvents.toString());
+
                     if (events.toString() == "[]") {
                       addedString = "\n\t\t\tNo Events To Show";
                     } else
@@ -753,15 +609,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           ]),
                     ),
                   ),
-                  // child: Text('\tEvents : \t$addedString',
-                  //     textAlign: TextAlign.start,
-                  //     style: GoogleFonts.montserrat(
-                  //         fontSize: 17.0,
-                  //         fontWeight: FontWeight.bold,
-                  //         color: darktheme
-                  //             ? Colors.grey[100]
-                  //             : Colors.grey[900])),
-                  // ),
                   ..._selectedEvents.map((event) => Dismissible(
                         key: Key(event.toString()),
                         background: Card(
@@ -783,19 +630,21 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                           setState(() {
                             _selectedEvents.remove(event);
                             removeEvent(_controller.selectedDay, event);
-                            scaffoldKey.currentState.showSnackBar(SnackBar(
-                                content: Text('Event Deleted'),
-                                duration: Duration(milliseconds: 500),
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.only(
-                                  topLeft: Radius.circular(15.0),
-                                  topRight: Radius.circular(15.0),
-                                ))));
-                            if (_selectedEvents.toString() == '[]') {
-                              addedString = "\n\t\t\tNo Events To Show";
-                            }
-                            prefs.clear();
+                            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                              content: Text('Event Deleted'),
+                              duration: Duration(milliseconds: 500),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(15.0),
+                                topRight: Radius.circular(15.0),
+                              )),
+                            ));
                           });
+
+                          if (_selectedEvents.toString() == '[]') {
+                            addedString = "\n\t\t\tNo Events To Show";
+                          }
+                          prefs.clear();
                         },
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
@@ -953,22 +802,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
-  // ignore: unused_element
-  Future<Null> _openUrl(String url, String urlName, context) async {
-    if (await canLaunch(url)) {
-      Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => Scaffold(
-                appBar: AppBar(
-                  backgroundColor: darktheme ? Colors.grey[900] : Colors.teal,
-                  title: Text(urlName),
-                ),
-                body: WebView(
-                  initialUrl: url,
-                ),
-              )));
-    }
-  }
-
   buildDeveloperTile(
       var name,
       var role,
@@ -991,11 +824,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           decoration: BoxDecoration(
             color: darktheme ? Colors.grey[850] : Colors.grey[200],
             borderRadius: BorderRadius.circular(15.0),
-            // boxShadow: [
-            //       BoxShadow(
-            //         color: darktheme ? Colors.transparent : Colors.grey,
-            //         blurRadius: 1.0,
-            //       ),]
           ),
           child: Container(
               padding: EdgeInsets.all(10.0),
@@ -1046,9 +874,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   : SizedBox(
                                       width: width * 0.135,
                                     ),
-                              // SizedBox(
-                              //   width: 10.0,
-                              // ),
                               email == true
                                   ? GestureDetector(
                                       child: Icon(Icons.mail_outline,
@@ -1073,13 +898,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   : SizedBox(
                                       width: width * 0.135,
                                     ),
-                              // SizedBox(
-                              //   width: 10.0,
-                              // ),
-
-                              // SizedBox(
-                              //   width: 10.0,
-                              // ),
                               whatsapp == true
                                   ? GestureDetector(
                                       child: Icon(FontAwesome.whatsapp,
@@ -1092,9 +910,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   : SizedBox(
                                       width: width * 0.135,
                                     ),
-                              // SizedBox(
-                              //   width: 10.0,
-                              // ),
                             ],
                           ),
                         ),
@@ -1107,7 +922,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   _buildDrawer() {
-    double width = MediaQuery.of(context).size.width;
     return Theme(
       data: Theme.of(context)
           .copyWith(canvasColor: darktheme ? Colors.grey[900] : Colors.white),
@@ -1187,141 +1001,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               thickness: 2.0,
               color: darktheme ? Colors.grey[850] : Colors.grey[200],
             ),
-            // Container(
-            //   decoration: BoxDecoration(
-            //       color: darktheme ? Colors.grey[900] : Colors.white),
-            //   child: InkWell(
-            //     child: ListTile(
-            //       title: Text(
-            //         'Team',
-            //         style: TextStyle(
-            //           fontWeight: FontWeight.w400,
-            //           fontSize: 17.0,
-            //           color: darktheme ? Colors.white : Colors.grey[600],
-            //         ),
-            //       ),
-            //       leading: Icon(Icons.code,
-            //           color: darktheme ? Colors.white : Colors.grey[600]),
-            //       onTap: () {
-            //         showModalBottomSheet(
-            //             isScrollControlled: true,
-            //             shape: RoundedRectangleBorder(
-            //                 borderRadius: BorderRadius.circular(30.0)),
-            //             backgroundColor:
-            //                 darktheme ? Colors.grey[900] : Colors.white,
-            //             context: context,
-            //             builder: (context) {
-            //               return SingleChildScrollView(
-            //                 child: Column(
-            //                     mainAxisAlignment:
-            //                         MainAxisAlignment.spaceEvenly,
-            //                     children: [
-            //                       Center(
-            //                         child: Icon(FontAwesome.angle_down,
-            //                             color: darktheme
-            //                                 ? Colors.grey
-            //                                 : Colors.grey[600]),
-            //                       ),
-            //                       SizedBox(
-            //                         height: 10.0,
-            //                       ),
-            //                       Center(
-            //                           child: Text(
-            //                         'TEAM',
-            //                         textAlign: TextAlign.center,
-            //                         style: GoogleFonts.montserrat(
-            //                             textStyle: TextStyle(
-            //                                 fontSize: 20.0,
-            //                                 fontWeight: FontWeight.w700,
-            //                                 color: darktheme
-            //                                     ? Colors.grey[200]
-            //                                     : Colors.grey[800])),
-            //                       )),
-            //                       Divider(),
-            //                       // SizedBox(
-            //                       //   height: 20.0,
-            //                       // ),
-            //                       buildDeveloperTile(
-            //                           'Abhinav Agrawal',
-            //                           'Lead Developer',
-            //                           'assets/Abhinav -3.jpeg',
-            //                           true,
-            //                           true,
-            //                           true,
-            //                           true,
-            //                           width * 0.40,
-            //                           'https://github.com/skully-coder',
-            //                           'https://www.instagram.com/abhi_1.7.0.9/',
-            //                           'mailto:abhinav.hfs@gmail.com',
-            //                           'https://wa.me/918169809401'),
-            //                       buildDeveloperTile(
-            //                           'Shuvam Mandal',
-            //                           'Project Head',
-            //                           'assets/Shuvam.jpg',
-            //                           true,
-            //                           true,
-            //                           true,
-            //                           true,
-            //                           width * 0.40,
-            //                           'https://github.com/coffeeCoder69',
-            //                           'https://www.instagram.com/shuvam_bhai/',
-            //                           'mailto:mandalshuvam71@gmail.com',
-            //                           'https://wa.me/919082268036'),
-            //                       GridTile(
-            //                         child: buildDeveloperTile(
-            //                             'Aaditya Nair',
-            //                             'Designer',
-            //                             'assets/Aaditya.jpeg',
-            //                             true,
-            //                             false,
-            //                             true,
-            //                             false,
-            //                             width * 0.40,
-            //                             'https://github.com/aadinoir',
-            //                             'https://www.instagram.com/aadityanair05/',
-            //                             'mailto:aadityanair05@gmail.com',
-            //                             'https://wa.me/919930222648'),
-            //                       )
-            //                     ]),
-            //               );
-            //             });
-            //       },
-            //     ),
-            //   ),
-            // ),
-            // Container(
-            //   decoration: BoxDecoration(
-            //       color: darktheme ? Colors.grey[900] : Colors.white),
-            //   child: InkWell(
-            //     child: AboutListTile(
-            //       applicationVersion: 'v1.0.0',
-            //       applicationIcon: Image.asset(
-            //         'assets/rainbowtest.png',
-            //         height: 40,
-            //       ),
-            //       icon: Icon(
-            //         Icons.info,
-            //         color: darktheme ? Colors.white : Colors.grey[600],
-            //       ),
-            //       child: Text(
-            //         'Licenses',
-            //         style: TextStyle(
-            //           fontWeight: FontWeight.w400,
-            //           fontSize: 17.0,
-            //           color: darktheme ? Colors.white : Colors.grey[600],
-            //         ),
-            //       ),
-            //     ),
-            //   ),
-            // ),
-            // drawerTabs(FontAwesome.bug, 'Report A Bug',
-            //     'mailto:manipal.qpleaks@gmail.com?subject=Report%20A%20Bug'),
-            // drawerTabs(Entypo.star, 'Rate the App',
-            //     'https://play.google.com/store/apps/details?id=com.manipal.manipalleaks'),
-            // Divider(
-            //   thickness: 2.0,
-            //   color: darktheme ? Colors.grey[850] : Colors.grey[200],
-            // ),
             Container(
               decoration: BoxDecoration(
                   color: darktheme ? Colors.grey[900] : Colors.white),
@@ -1340,95 +1019,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     color: darktheme ? Colors.white : Colors.grey[600],
                   ),
                   onTap: () {
-                    // showDialog(
-                    //   context: context,
-                    //   builder: (context) => AlertDialog(
-                    //     backgroundColor:
-                    //         darktheme ? Colors.grey[850] : Colors.white,
-                    //     shape: RoundedRectangleBorder(
-                    //         borderRadius: BorderRadius.circular(20.0)),
-                    //     title: Text(
-                    //       'Coming Soon',
-                    //       style: TextStyle(
-                    //         color: darktheme ? Colors.grey[200] : Colors.black,
-                    //       ),
-                    //     ),
-                    //     content: Text('This feature is still in development',
-                    //         style: TextStyle(
-                    //           color:
-                    //               darktheme ? Colors.grey[200] : Colors.black,
-                    //         )),
-                    //     actions: [
-                    //       FlatButton(
-                    //           onPressed: () => Navigator.of(context).pop(),
-                    //           child: Text('OK'))
-                    //     ],
-                    //   ),
-                    // );
                     _launchURL("https://clubs.mitportals.in");
                   },
                 ),
               ),
             ),
-            // Container(
-            //   decoration: BoxDecoration(
-            //       color: darktheme ? Colors.grey[900] : Colors.white),
-            //   child: InkWell(
-            //     child: ListTile(
-            //       title: Text(
-            //         'Connect With Us',
-            //         style: TextStyle(
-            //           fontWeight: FontWeight.w400,
-            //           fontSize: 17.0,
-            //           color: darktheme ? Colors.white : Colors.grey[600],
-            //         ),
-            //       ),
-            //       leading: Icon(
-            //         Entypo.share,
-            //         color: darktheme ? Colors.white : Colors.grey[600],
-            //       ),
-            //       onTap: () {
-            //         // Navigator.push(context, _createRoute(Account()));
-            //       },
-            //     ),
-            //   ),
-            // ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            //   children: [
-            //     SizedBox(
-            //       width: width * 0.01,
-            //     ),
-            //     IconButton(
-            //         icon: Icon(
-            //           Entypo.mail,
-            //           color: darktheme ? Colors.white : Colors.grey[600],
-            //         ),
-            //         onPressed: () =>
-            //             _launchURL('mailto:manipal.qpleaks@gmail.com')),
-            //     IconButton(
-            //         icon: Icon(
-            //           Feather.instagram,
-            //           color: darktheme ? Colors.white : Colors.grey[600],
-            //         ),
-            //         onPressed: () =>
-            //             _launchURL('https://www.instagram.com/manipalleaks/')),
-            //     IconButton(
-            //         icon: Icon(
-            //           MaterialIcons.language,
-            //           color: darktheme ? Colors.white : Colors.grey[600],
-            //         ),
-            //         onPressed: () =>
-            //             _launchURL('http://manipalleaks.wtf/?i=1')),
-            //     IconButton(
-            //         icon: Icon(
-            //           Entypo.youtube,
-            //           color: darktheme ? Colors.white : Colors.grey[600],
-            //         ),
-            //         onPressed: () => _launchURL(
-            //             'https://www.youtube.com/channel/UCRqzzYo6xm7aklQeV2ZZ1gw')),
-            //   ],
-            // ),
             Divider(
               thickness: 2.0,
               color: darktheme ? Colors.grey[850] : Colors.grey[200],
@@ -1498,7 +1093,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 ),
                               ),
                               actions: [
-                                FlatButton(
+                                TextButton(
                                     onPressed: () async {
                                       await _auth.signOut();
                                       Navigator.pushAndRemoveUntil(
@@ -1507,7 +1102,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                           (Route<dynamic> route) => false);
                                     },
                                     child: Text('YES')),
-                                FlatButton(
+                                TextButton(
                                     onPressed: () {
                                       Navigator.pop(context);
                                     },
@@ -1528,7 +1123,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
-//
   _launchURL(url) async {
     if (await canLaunch(url)) {
       await launch(url);
@@ -1562,21 +1156,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 : e,
                             softWrap: true,
                           ),
-                          // text: channelnames.indexOf(e) == 2
-                          //     ? '${branch.substring(0, branch.toString().indexOf(':'))} - ${section.toUpperCase()}'
-                          //     : e
                         ))
                     .toList())
-            // : _currentIndex == 4
-            //     ? TabBar(
-            //         controller: _servicetabcontroller,
-            //         isScrollable: true,
-            //         indicatorSize: TabBarIndicatorSize.tab,
-            //         tabs: servicenames
-            //             .map((e) => Tab(
-            //                   text: e,
-            //                 ))
-            //             .toList())
             : null,
         title: Text(
           tabname[_currentIndex],
@@ -1595,10 +1176,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               mini: true,
               isExtended: true,
               onPressed: () {
-                // print(_controller.selectedDay);
-                // Navigator.of(context).push(_createRoute(AddEventDetails(
-                //     _controller.selectedDay.toUtc().toString())));
-                // _showAddDialog();
                 _showAddSheet(context);
               },
               backgroundColor: Colors.teal,
@@ -1606,86 +1183,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           : null,
       drawer: _buildDrawer(),
       backgroundColor: darktheme ? Colors.grey[900] : Colors.grey[200],
-      // body: PageView(
-      //   onPageChanged: (val) {
-      //     setState(() {
-      //       _currentIndex = val;
-      //     });
-      //   },
-      //   controller: _pageController,
-      //   scrollDirection: Axis.horizontal,
-      //   children: [
-      //     Padding(
-      //       padding: const EdgeInsets.all(8.0),
-      //       child: Column(
-      //         mainAxisAlignment: MainAxisAlignment.start,
-      //         crossAxisAlignment: CrossAxisAlignment.stretch,
-      //         children: [
-      //           ...years.map(
-      //             (e) => Card(
-      //                 color: darktheme ? Colors.blueGrey[900] : Colors.white,
-      //                 shape: RoundedRectangleBorder(
-      //                     borderRadius: BorderRadius.circular(12.0)),
-      //                 shadowColor: Colors.black,
-      //                 child: ListTile(
-      //                   title: Text(
-      //                     e,
-      //                     style: TextStyle(
-      //                         color: darktheme ? Colors.white : Colors.black),
-      //                   ),
-      //                   onTap: () {
-      //                     switch (e) {
-      //                       case "First Year":
-      //                         Navigator.push(
-      //                             context, _createRoute(FirstYear()));
-      //                         break;
-      //                       case "Second Year":
-      //                         Navigator.push(
-      //                             context, _createRoute(SecondYear()));
-      //                         break;
-      //                       default:
-      //                     }
-      //                   },
-      //                 )),
-      //           )
-      //         ],
-      //       ),
-      //     ),
-      //     showMessagePage(),
-      //     _showEventCalendar(),
-      //     PortalLinks(),
-      //     Padding(
-      //       padding: const EdgeInsets.all(8.0),
-      //       child: GridView.count(
-      //           crossAxisCount: 2,
-      //           children: new List<Widget>.generate(
-      //             4,
-      //             (index) {
-      //               return Padding(
-      //                 padding: const EdgeInsets.all(8.0),
-      //                 child: new GridTile(
-      //                   child: GestureDetector(
-      //                       child: new Card(
-      //                           color: darktheme
-      //                               ? Colors.blueGrey[300]
-      //                               : Colors.white,
-      //                           child: new Center(
-      //                             child: new Text(
-      //                                 '${servicenames[index].toUpperCase()}'),
-      //                           )),
-      //                       onTap: () {
-      //                         Navigator.of(context).push(_createRoute(
-      //                             ManipalServices(servicenames[index])));
-      //                       }),
-      //                 ),
-      //               );
-      //             },
-      //           )),
-      //     ),
-      //   ],
-      // ),
       body: selectBodyTab(_currentIndex),
-
       bottomNavigationBar: CurvedNavigationBar(
         items: [
           Icon(
@@ -1892,8 +1390,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       _events = value.data['events'];
       _dateEvents =
           _events.map((key, value) => MapEntry(DateTime.parse(key), value));
-      // print('events: $_events');
-      // print('dateEvents: $_dateEvents');
+
       print("Data Recieved");
       setState(() {
         if (_dateEvents[DateTime(DateTime.now().year, DateTime.now().month,
@@ -1910,18 +1407,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               .toUtc()];
           print(_selectedEvents);
           print(_selectedEvents);
-          // print(DateTime(DateTime.now().year, DateTime.now().month,
-          //         DateTime.now().day, 17, 30)
-          //     .toUtc());
         } else {
           _selectedEvents = [];
           addedString = "\n\t\t\tNo Events To Show";
           print(_selectedEvents);
-          // print(_controller.selectedDay);
         }
       });
       isUserEventsLoaded = true;
-      // print(isUserEventsLoaded);
     }).catchError((e) => print(e));
     return _events;
   }
@@ -1931,9 +1423,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     final FirebaseUser user = await auth.currentUser();
     if (_events[key.toString()] == null) {
       eventarr = [event];
-      // print('eventarr : $eventarr');
+
       _events = {'$key': eventarr};
-      // print(_events);
+
       await Firestore.instance
           .collection('/users')
           .document(user.uid)
@@ -1942,14 +1434,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           .catchError((e) => print(e));
     } else {
       try {
-        // print('eventarr : $eventarr');
-
         _events = {'$key': eventarr};
       } catch (e) {
         print(e);
       }
-      // print('eventarr : $eventarr');
-      // print(_events);
+
       await Firestore.instance
           .collection('/users')
           .document(user.uid)
@@ -1973,9 +1462,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   }
 
   _showAddSheet(context) {
-    // ignore: unused_local_variable
-    double height = MediaQuery.of(context).size.height;
-    double width = MediaQuery.of(context).size.width;
     showDialog(
       context: context,
       builder: (context) {
@@ -1983,12 +1469,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           scrollable: true,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
-          // title: Text('Add Task'),
-          // titleTextStyle: TextStyle(
-          //   color: darktheme ? Colors.white : Colors.black,
-          //   fontWeight: FontWeight.bold,
-          //   fontSize: 20.0,
-          // ),
           backgroundColor: darktheme ? Colors.grey[850] : Colors.white,
           content: SingleChildScrollView(
             child: Form(
@@ -2009,7 +1489,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             fontWeight: FontWeight.bold),
                       ),
                     ),
-                    //height: 100.0,
                   ),
                   SizedBox(height: 30.0),
                   Container(
@@ -2074,10 +1553,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             style: TextStyle(
                                 color: darktheme ? Colors.white : Colors.black),
                           ),
-                          RaisedButton(
-                            color: Colors.teal,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0)),
+                          TextButton(
                             onPressed: () async {
                               time = await showTimePicker(
                                 context: context,
@@ -2087,124 +1563,12 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                 selectedTime = time;
                                 time = TimeOfDay.now();
                               });
-                              // print(selectedTime.format(context));
                             },
                             child: Text(
                               "Select Time",
                               style: TextStyle(color: Colors.white),
                             ),
                           ),
-                          // Padding(
-                          //   padding: const EdgeInsets.all(4.0),
-                          //   child: Container(
-                          //     width: width * 0.1,
-                          //     child: TextFormField(
-                          //         initialValue: '12',
-                          //         textInputAction: TextInputAction.next,
-                          //         textAlignVertical: TextAlignVertical.top,
-                          //         textAlign: TextAlign.center,
-                          //         showCursor: true,
-                          //         buildCounter: (context,
-                          //                 {currentLength,
-                          //                 isFocused,
-                          //                 maxLength}) =>
-                          //             null,
-                          //         maxLength: 2,
-                          //         style: TextStyle(
-                          //           fontSize: 17.0,
-                          //           color:
-                          //               darktheme ? Colors.white : Colors.black,
-                          //         ),
-                          //         textCapitalization:
-                          //             TextCapitalization.sentences,
-                          //         keyboardType: TextInputType.number,
-                          //         decoration: InputDecoration(
-                          //           enabledBorder: InputBorder.none,
-                          //         ),
-                          //         validator: (value) => value == null
-                          //             ? 'Time cannot be blank'
-                          //             : int.parse(value) < 0 &&
-                          //                     int.parse(value) > 12
-                          //                 ? 'Hour should be between 0 and 12'
-                          //                 : null,
-                          //         onChanged: (value) {
-                          //           setState(() {
-                          //             eventTimeHour = value;
-                          //           });
-                          //         }),
-                          //   ),
-                          // ),
-                          // Text(
-                          //   ' : ',
-                          //   style: TextStyle(
-                          //       color: darktheme ? Colors.white : Colors.black,
-                          //       fontSize: 15.0),
-                          // ),
-                          // Padding(
-                          //   padding: const EdgeInsets.all(4.0),
-                          //   child: Container(
-                          //     width: width * 0.1,
-                          //     child: TextFormField(
-                          //         initialValue: '00',
-                          //         textInputAction: TextInputAction.next,
-                          //         textAlignVertical: TextAlignVertical.top,
-                          //         textAlign: TextAlign.center,
-                          //         showCursor: true,
-                          //         buildCounter: (context,
-                          //                 {currentLength,
-                          //                 isFocused,
-                          //                 maxLength}) =>
-                          //             null,
-                          //         maxLength: 2,
-                          //         style: TextStyle(
-                          //           fontSize: 17.0,
-                          //           color:
-                          //               darktheme ? Colors.white : Colors.black,
-                          //         ),
-                          //         textCapitalization:
-                          //             TextCapitalization.sentences,
-                          //         keyboardType: TextInputType.number,
-                          //         decoration: InputDecoration(
-                          //           enabledBorder: InputBorder.none,
-                          //         ),
-                          //         validator: (value) => value == null
-                          //             ? 'Time cannot be blank'
-                          //             : null,
-                          //         onChanged: (value) {
-                          //           setState(() {
-                          //             eventTimeMinute = value;
-                          //           });
-                          //         }),
-                          //   ),
-                          // ),
-                          // Container(
-                          //   child: DropdownButton(
-                          //     dropdownColor:
-                          //         darktheme ? Colors.grey[800] : Colors.white,
-                          //     items: timeofday.map((value) {
-                          //       return DropdownMenuItem(
-                          //           child: Text(
-                          //             value,
-                          //             style: TextStyle(fontSize: 16.0),
-                          //           ),
-                          //           value: value);
-                          //     }).toList(),
-                          //     onChanged: (val) {
-                          //       setState(() {
-                          //         selectedtimeofday = val;
-                          //       });
-                          //       // print(selectedtimeofday);
-                          //     },
-                          //     value: selectedtimeofday,
-                          //     underline: Divider(
-                          //       thickness: 0.0,
-                          //     ),
-                          //     style: TextStyle(
-                          //         color:
-                          //             darktheme ? Colors.white : Colors.black,
-                          //         fontSize: 16.0),
-                          //   ),
-                          // ),
                         ],
                       ),
                     ),
@@ -2252,14 +1616,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                       color: Colors.teal,
                       onPressed: () {
                         if (_formkey.currentState.validate()) {
-                          // print(_formkey.currentState.validate());
                           eventTime = '$eventTimeHour:$eventTimeMinute';
-                          // print(eventTime);
-                          // print(eventDetail);
+
                           if (eventDetail == null) {
                             setState(() {
                               eventDetail = 'No Details Available';
-                              // print(eventDetail);
                             });
                           }
                           if (selectedTime != null)
@@ -2290,7 +1651,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               prefs.setString("events",
                                   json.encode(encodeMap(_dateEvents)));
                               print('');
-                              // print(prefs.getString("events"));
+
                               setState(() {
                                 addedString = '';
                                 _selectedEvents =
@@ -2335,7 +1696,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               prefs.setString("events",
                                   json.encode(encodeMap(_dateEvents)));
 
-                              // print(prefs.getString("events"));
                               setState(() {
                                 addedString = '';
                                 _selectedEvents = _dateEvents[DateTime(
