@@ -1,6 +1,6 @@
 # CollegeScape
 
-<p align="center">
+<p align="left">
 <img src="https://github.com/skully-coder/CollegeScape/blob/main/assets/college_scape_logo.png" alt="drawing" width="300"/>
 </p>
 
